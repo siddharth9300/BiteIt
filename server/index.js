@@ -10,7 +10,7 @@ const authRoutes = require("./routes/authRoutes");
 connectDb();
 app.use(
   cors({
-    origin: ["http://localhost:5173","https://flavoro-clone.vercel.app"],
+    origin: '*',
     credentials: true,
   })
 );
