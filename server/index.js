@@ -10,7 +10,7 @@ const authRoutes = require("./routes/authRoutes");
 connectDb();
 app.use(
   cors({
-    origin: '*',
+    origin: ["http://localhost:5173","https://biteit.onrender.com"],
     credentials: true,
   })
 );
