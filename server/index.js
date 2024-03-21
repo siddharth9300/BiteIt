@@ -7,6 +7,7 @@ const cookieParser = require("cookie-parser");
 const { connectDb } = require("./connection");
 const cartRoutes = require("./routes/cartRoutes");
 const authRoutes = require("./routes/authRoutes");
+const menuRoutes = require("./routes/menuRoutes");
 connectDb();
 app.use(
   cors({
@@ -17,6 +18,6 @@ app.use(
 app.use(express.json());
 app.use(cookieParser());
 
-app.use("/api", cartRoutes,authRoutes);
+app.use("/api", cartRoutes,authRoutes,menuRoutes);
 
 app.listen(port, () => console.log(`Server is running on port ${port}`));
