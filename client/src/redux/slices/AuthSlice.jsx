@@ -1,6 +1,8 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-const authSlice = createSlice({
+const authSlice = createSlice(
+  
+  {
   name: "auth",
   initialState: {
     user: null,
@@ -8,6 +10,7 @@ const authSlice = createSlice({
     isAdmin: false, // Add isAdmin property
 
   },
+  
   reducers: {
     loginUser: (state, action) => {
       state.isAuth = true;

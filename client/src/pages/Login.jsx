@@ -20,9 +20,12 @@ const Login = () => {
       password,
     });
     const data = await res.data;
+    console.log(data);
 
-    if (res.status === 200) {
-      dispatch(loginUser({ user: data, isAdmin: data.isAdmin }));
+    // if (res.status === 200) {
+      if (res.status === 200 ) {
+        console.log(data.user.isAdmin);
+      dispatch(loginUser({ user: data.user, isAdmin: data.user.isAdmin }));
       toast.success(data.message);
       navigate("/");
     }

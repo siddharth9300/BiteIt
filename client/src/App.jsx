@@ -10,6 +10,7 @@ import ResetPassword from "./pages/ResetPassword";
 import VerifyOtp from "./pages/VerifyOtp";
 import { useSelector } from "react-redux"; // Import the useSelector hook
 import AdminDashboard from "./pages/AdminDashboard";
+import Orders from "./pages/Orders";
 const App = () => {
   console.log(import.meta.env.VITE_SERVER_URL);
 
@@ -30,6 +31,7 @@ console.log(isAdmin);
         <Route path="/*" element={<Error />} />
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Signup />} />
+        <Route path="/orders" element={<Orders />} />
         <Route path="/forgot-password" element={<ResetPassword />} />
         <Route path="/verify-otp" element={<VerifyOtp />} />
       </Routes>

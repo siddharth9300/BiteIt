@@ -21,14 +21,17 @@ exports.getMenuItems = async (req, res) => {
 // Controller function to add a new menu item
 exports.addMenuItem = async (req, res) => {
   try {
-    const { name, description, price } = req.body;
+    const { name, category, price ,image } = req.body;
     // Create a new menu item
+    console.log(req.body)
     const food = await Food.create({
-      name,
-      description,
-      price
+      name : name,
+      category : category,
+      price : price,
+      image: image,
     });
-    res.status(201).json({ success: true, data: food });
+    res.status(201).json({ success: true, data: food ,message: 'Menu item added successfully' });
+    console.log('food:', food);
   } catch (error) {
     console.error(error);
     res.status(500).json({ success: false, error: 'Server Error' });
@@ -53,12 +56,13 @@ exports.removeMenuItem = async (req, res) => {
 exports.updateMenuItem = async (req, res) => {
   try {
     const foodId = req.params.id;
-    const { name, description, price } = req.body;
+    const { name, category, price ,image } = req.body;
     // Find and update the menu item by ID
     const food = await Food.findByIdAndUpdate(foodId, {
       name,
-      description,
-      price
+      category,
+      price,
+      image,
     }, { new: true });
     res.status(200).json({ success: true, data: food });
   } catch (error) {

@@ -184,7 +184,7 @@ const checkout = async (req, res) => {
 
     const session = await stripe.checkout.sessions.create({
       payment_method_types: ["card"],
-      mode: "payment",
+      mode: "payment",  
       line_items: cartItems.map((item) => {
         return {
           price_data: {
@@ -199,8 +199,10 @@ const checkout = async (req, res) => {
           quantity: item.quantity,
         };
       }),
-      success_url: "https://flavoro-clone.vercel.app/success",
-      cancel_url: "https://flavoro-clone.vercel.app/",
+      success_url: `${process.env.CLIENT_URL}/success`,
+      //  "https://flavoro-clone.vercel.app/success",
+      cancel_url: `${process.env.CLIENT_URL}`,
+      // "https://flavoro-clone.vercel.app/",
     });
 
     res.json({ url: session.url });

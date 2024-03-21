@@ -1,30 +1,36 @@
 import React, { useEffect, useState } from "react";
-import FoodData from "../data/FoodData";
+// import FoodData from "../data/FoodData";
 import { useDispatch, useSelector } from "react-redux";
 import { setCategory } from "../redux/slices/CategorySlice";
-
+import axios from "axios";
 const CategoryMenu = () => {
   const [categories, setCategories] = useState([]);
+const [FoodItems, setFoodItems] = useState([]);
 
-  const listUniqueCategories = () => {
-    const uniqueCategories = [
-      ...new Set(FoodData.map((food) => food.category)),
-    ];
+useEffect(() => {
+  fetchData();
+}, []);
+
+const fetchData = async () => {
+  try {
+    const response = await axios.get(`${import.meta.env.VITE_SERVER_URL}/api/get-menu-items`);
+    const foodItems = response.data;
+    const uniqueCategories = [...new Set(foodItems.map((food) => food.category))];
     setCategories(uniqueCategories);
-    console.log(uniqueCategories);
-  };
-
-  useEffect(() => {
-    listUniqueCategories();
-  }, []);
+    
+  } catch (error) {
+    console.error("Failed to fetch data: ", error);
+  }
+};
+ 
 
   const dispatch = useDispatch();
   const selectedCategory = useSelector((state) => state.category.category);
 
   return (
     <div className="ml-6">
-      <h3 className="text-xl font-semibold">Find the best food</h3>
-      <div className="my-5 flex gap-3 overflow-x-scroll scroll-smooth lg:overflow-x-hidden">
+      {/* <h3 className="text-xl font-semibold">Find the best food</h3> */}
+      <div className="my-5 flex gap-3">
         <button
           onClick={() => dispatch(setCategory("All"))}
           className={`px-3 py-2 bg-gray-200 font-bold rounded-lg hover:bg-green-500 hover:text-white ${

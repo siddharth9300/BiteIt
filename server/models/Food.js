@@ -2,9 +2,10 @@ const mongoose = require("mongoose");
 
 const foodSchema = new mongoose.Schema(
   {
-    id: Number,
+    id: String,
     name: String,
     price: Number,
+    category: String,
     totalPrice: Number,
     quantity: Number,
     rating: Number,

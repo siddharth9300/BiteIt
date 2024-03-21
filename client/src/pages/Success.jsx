@@ -3,9 +3,12 @@ import React, { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import { PropagateLoader } from "react-spinners";
 axios.defaults.withCredentials = true;
+import { useNavigate  } from "react-router-dom"; // Import useHistory from react-router-dom
 
 const Success = () => {
   const [loading, setLoading] = useState(true);
+  const navigate = useNavigate (); // Initialize useHistory hook
+
   useEffect(() => {
     setTimeout(() => {
       setLoading(false);
@@ -20,9 +23,18 @@ const Success = () => {
 
   useEffect(() => {
     clearCart();
-  }, []);
+
+
+    const timeoutId = setTimeout(() => {
+      navigate("/orders");
+    }, 10000);
+
+    return () => clearTimeout(timeoutId);
+
+  }, [navigate]);
 
   return (
+
     <div className="flex flex-col items-center justify-center h-screen">
       {loading ? (
         <PropagateLoader color="#36d7b7" />

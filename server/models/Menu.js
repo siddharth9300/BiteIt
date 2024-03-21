@@ -16,18 +16,18 @@ const menuSchema = new mongoose.Schema({
     type: Number,
     required: true
   },
-  desc: {
-    type: String,
-    required: true
-  },
+  // desc: {
+  //   type: String,
+  //   required: true
+  // },
   category: {
     type: String,
     required: true
   },
-  rating: {
-    type: Number,
-    required: true
-  }
+  // rating: {
+  //   type: Number,
+  //   required: true
+  // }
 });
 
 // Create the Menu model based on the schema
