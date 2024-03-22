@@ -16,7 +16,8 @@ const App = () => {
 
   // const isAuthenticated = useSelector(state => state.auth.isAuthenticated);
   const isAdmin = useSelector(state => state.auth.isAdmin);
-console.log(isAdmin);
+  console.log(isAdmin);
+// console.log(isAdmin);
 
   return (
     <BrowserRouter>

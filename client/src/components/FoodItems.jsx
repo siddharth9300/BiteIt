@@ -12,8 +12,10 @@ const FoodItems = () => {
   const search = useSelector((state) => state.search.search);
   const handleToast = (name) => toast.success(`Added ${name} `);
   // console.log("this is food item " + userRole);
-  const user = useSelector((state) => state.auth.user);
-  const isAdmin = user && typeof user.isAdmin === 'boolean' ? user.isAdmin : false;
+  // const user = useSelector((state) => state.auth.user);
+  const isAdmin = useSelector(state => state.auth.isAdmin);
+
+  // const isAdmin = user && typeof user.isAdmin === 'boolean' ? user.isAdmin : false;
 
 // console.log(user.isAdmin);
 

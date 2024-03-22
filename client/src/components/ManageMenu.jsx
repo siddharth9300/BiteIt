@@ -8,7 +8,9 @@ const ManageMenu = () => {
 
   const dispatch = useDispatch();
   const user = useSelector((state) => state.auth.user);
-  console.log(user.isAdmin)
+  const isAdmin = useSelector(state => state.auth.isAdmin);
+
+  // console.log(user.isAdmin)
 
  
 
@@ -20,7 +22,7 @@ const ManageMenu = () => {
     className="p-1 right-5 absolute  text-white bg-green-500 hover:bg-green-600 rounded-lg text-xl ">
 Add Menu Item</button> */}
     <CategoryMenu />
-    <FoodItems userRole={user.isAdmin} />
+    <FoodItems userRole={isAdmin} />
    
 
 

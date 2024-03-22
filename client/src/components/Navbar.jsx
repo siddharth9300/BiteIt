@@ -5,7 +5,7 @@ import { GiHamburgerMenu } from "react-icons/gi";
 import { MdClose } from "react-icons/md";
 import NavList from "./NavList";
 import axios from "axios";
-import { loginUser, setUser } from "../redux/slices/AuthSlice";
+import { loginUser, logoutUser, setUser } from "../redux/slices/AuthSlice";
 import { getCart } from "../helper";
 import { setCart } from "../redux/slices/CartSlice";
 import { Link } from "react-router-dom";
@@ -39,6 +39,7 @@ const Navbar = () => {
   const handleLogout = async () => {
     const res = await axios.get(`${import.meta.env.VITE_SERVER_URL}/api/logout`);
     const data = await res.data;
+    dispatch(logoutUser());
     toast.success(data.message);
     window.location.href = "/";
   };

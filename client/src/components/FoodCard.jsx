@@ -20,6 +20,9 @@ const FoodCard = ({
 }) => {
   const dispatch = useDispatch();
   const user = useSelector((state) => state.auth.user);
+  console.log(user);
+  const isAdmin = useSelector(state => state.auth.isAdmin);
+
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [showEditModal, setShowEditModal] = useState(false);
   const [editFormData, setEditFormData] = useState({
@@ -132,7 +135,7 @@ const FoodCard = ({
           <AiFillStar className="mr-1 text-yellow-400" /> {rating}
         </span> */}
 
-          {user.isAdmin ? (
+          {isAdmin ? (
             <>
               <button
                 onClick={handleEditModal}

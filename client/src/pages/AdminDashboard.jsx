@@ -64,7 +64,7 @@ const AdminDashboard = () => {
         {/* Main Content */}
         <div className="w-3/4 p-4">{renderActiveComponent()}</div>
       </div>
-      <Cart /> {/* Assuming you want to display the cart component */}
+      {/* <Cart />  */}
    
     </>
   );
