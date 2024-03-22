@@ -6,6 +6,7 @@ import Navbar from "../components/Navbar";
 import ManageMenu from "../components/ManageMenu"; // A component for managing menu items
 import ManageUsers from "../components/ManageUsers"; // A component for managing users
 import Cart from "../components/Cart";
+import AdminOrders from "./AdminOrders";
 
 const AdminDashboard = () => {
 
@@ -26,7 +27,7 @@ const AdminDashboard = () => {
       case "manageUsers":
         return <ManageUsers />;
       case "orders":
-        return <ManageUsers />;
+        return <AdminOrders />;
       default:
         return null;
     }
