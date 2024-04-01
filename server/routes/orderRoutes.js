@@ -1,5 +1,6 @@
 const router = require("express").Router();
-const {getOrdersByAdmin, updateOrder, getOrdersByUser} = require('../controllers/orderController');
+const {getOrdersByAdmin, updateOrder, getOrdersByUser} = require('../controllers/OrderController');
+
 // Routes accessible by admin
 const { verifyToken } = require("../middlewares/verifyToken");
 
