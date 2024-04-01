@@ -43,19 +43,26 @@ const FoodCard = ({
   const addToCart = async ({ id, name, image, price, rating, quantity }) => {
     const res = await axios.post(
       `${import.meta.env.VITE_SERVER_URL}/api/add-to-cart/${user._id}`,
-      {
-        id,
-        image,
-        name,
-        price,
-        rating,
-        quantity,
+      {foodId: id, quantity: 1 
+        // id,
+        // image,
+        // name,
+        // price,
+        // rating,
+        // quantity,
       }
     );
     const data = await res.data;
     toast.success(data.message);
     getCart(user).then((data) => dispatch(setCart(data.cartItems)));
   };
+
+
+
+
+
+
+  
 
   const editItem = async (e) => {
     // Open a form or modal for editing with current values populated

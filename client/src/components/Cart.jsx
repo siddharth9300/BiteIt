@@ -10,16 +10,24 @@ axios.defaults.withCredentials = true;
 const Cart = () => {
   const [activeCart, setActiveCart] = useState(false);
 
+  // const cartItems = useSelector((state) => state.cart.cart);
+  // console.log(cartItems);
+  // const totalQty = cartItems ? cartItems.reduce((totalQty, item) => totalQty + item.quantity, 0) : 0;
+  // const totalPrice = cartItems ? cartItems.reduce((total, item) => total + item.quantity * item.food.price, 0) : 0;
+  
+
   const cartItems = useSelector((state) => state.cart.cart);
   console.log(cartItems);
-  const totalQty = cartItems.reduce(
-    (totalQty, item) => totalQty + item.quantity,
-    0
-  );
-  const totalPrice = cartItems.reduce(
-    (total, item) => total + item.quantity * item.price,
-    0
-  );
+  
+  // Check if cartItems is an array
+  const totalQty = Array.isArray(cartItems) ? cartItems.reduce((totalQty, item) => totalQty + item.quantity, 0) : 0;
+  
+  // Check if cartItems is an array and each item has the expected structure
+  // const totalPrice = Array.isArray(cartItems) ? cartItems.reduce((total, item) => total + item.items[0].quantity * item.food.price, 0) : 0;
+  
+
+console.log(totalQty);
+// console.log(cartItems.items[0].food.name);
 
   const navigate = useNavigate();
 
@@ -44,9 +52,10 @@ const Cart = () => {
           />
         </div>
 
-        {cartItems.length > 0 ? (
-          cartItems.map((food) => {
-            return <ItemCard key={food.id} {...food} />;
+        {cartItems && cartItems.items && cartItems.items.length > 0 ? (
+          cartItems.items.map((item) => {
+            // console.log(item.food.name);
+            return <ItemCard key={item._id} cartId={cartItems._id }{...item}  />;
           })
         ) : (
           <h2 className="text-center text-xl font-bold text-gray-800">
@@ -55,9 +64,9 @@ const Cart = () => {
         )}
 
         <div className="absolute bottom-0 ">
-          <h3 className="font-semibold text-gray-800">Items : {totalQty}</h3>
+          <h3 className="font-semibold text-gray-800">Items : {cartItems && cartItems.totalQuantity ? cartItems.totalQuantity : 0} </h3>
           <h3 className="font-semibold text-gray-800">
-            Total Amount : {totalPrice}
+          Total Amount : {cartItems && cartItems.totalPrice ? cartItems.totalPrice : 0}
           </h3>
           <hr className="w-[90vw] lg:w-[18vw] my-2" />
           <button

@@ -2,8 +2,8 @@
 
 // Import any required models or modules
 const Food = require('../models/Food'); // Assuming you have a Food model
-
-
+// const User = require('../models/User'); // Assuming you have a User model
+const Order = require('../models/Order'); // Import the Order model
 
 exports.getMenuItems = async (req, res) => {
   try {
@@ -81,5 +81,62 @@ exports.deleteMenuItem = async (req, res) => {
   } catch (error) {
     console.error(error);
     res.status(500).json({ success: false, error: 'Server Error' });
+  }
+};
+
+
+// // Controller function to get orders for a specific user
+// exports.getUserOrders = async (req, res) => {
+//   try {
+//     const userId = req.params.userId; // Assuming userId is passed in the request
+//     // Query orders for the specific user from the MongoDB database
+//     const userOrders = await Order.find({ userId: userId });
+//     res.json(userOrders);
+//   } catch (error) {
+//     console.error('Error fetching user orders:', error);
+//     res.status(500).json({ error: 'Internal server error' });
+//   }
+// };
+
+// // Controller function to get all orders for admin
+// exports.getAllOrdersForAdmin = async (req, res) => {
+//   try {
+//     // Query all orders from the MongoDB database and populate all fields
+//     const orders = await Order.find().populate('userId').populate('items._id');
+//     console.log('orders:', orders);
+//     res.json(orders);
+//   } catch (error) {
+//     console.error('Error fetching all orders for admin:', error);
+//     res.status(500).json({ error: 'Internal server error' });
+//   }
+// };
+
+
+
+// const Order = require('../models/Order');
+
+// Controller function to get orders for a specific user
+exports.getUserOrders = async (req, res) => {
+  try {
+    const userId = req.params.userId; // Assuming userId is passed in the request
+    // Query orders for the specific user from the MongoDB database
+    const userOrders = await Order.find({ user: userId }).populate('items.food');
+    res.json(userOrders);
+  } catch (error) {
+    console.error('Error fetching user orders:', error);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+};
+
+// Controller function to get all orders for admin
+exports.getAllOrdersForAdmin = async (req, res) => {
+  try {
+    // Query all orders from the MongoDB database and populate all fields
+    const orders = await Order.find().populate('user').populate('items.food');
+    console.log('orders:', orders);
+    res.json(orders);
+  } catch (error) {
+    console.error('Error fetching all orders for admin:', error);
+    res.status(500).json({ error: 'Internal server error' });
   }
 };

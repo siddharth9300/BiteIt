@@ -15,9 +15,9 @@ const router = require("express").Router();
 // FEATURE ROUTES
 router.post("/add-to-cart/:id", addToCart)
 router.get("/get-cart/:id", getCart)
-router.delete("/remove-from-cart/:id", removeFromCart)
-router.put("/increment-quantity/:id", incrementQuantity)
-router.put("/decrement-quantity/:id", decrementQuantity)
+router.delete("/remove-from-cart/:cartId/:itemId", removeFromCart);
+router.put("/increment-quantity/:cartId/:itemId", incrementQuantity)
+router.put("/decrement-quantity/:cartId/:itemId", decrementQuantity)
 router.get("/checkout",verifyToken, checkout)
 router.get("/clear-cart",verifyToken,clearCart)
 
