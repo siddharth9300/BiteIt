@@ -109,6 +109,7 @@ const FoodItems = () => {
 Add Menu Item</button>
     }
 
+<div className=" w-full  mx-auto flex-wrap justify-center  flex">
 
 {foodItems
           .filter((food) => {
@@ -135,6 +136,8 @@ Add Menu Item</button>
 
           />
         ))}
+
+        </div>
       </div>
 
 

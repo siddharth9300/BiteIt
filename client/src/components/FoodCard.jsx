@@ -126,55 +126,47 @@ const FoodCard = ({
 
   return (
     <>
-      <div className="font-bold w-[250px] bg-white p-5 flex flex-col rounded-lg gap-2">
-        <img
-          src={image}
-          alt=""
-          className="w-auto h-[130px]  hover:scale-110 cursor-grab transition-all duration-500 ease-in-out "
-        />
-        <div className="text-sm flex justify-between">
-          <h2>{name}</h2>
-          <span className="text-green-500 ">₹{price}</span>
-        </div>
-        {/* <p className="text-sm font-normal">{desc.slice(0, 50)}...</p> */}
-        <div className="flex justify-center  items-center">
-          {/* <span className="flex justify-center items-center">
-          <AiFillStar className="mr-1 text-yellow-400" /> {rating}
-        </span> */}
+     <div class=" m-2 flex w-1/4 max-w-xs flex-col overflow-hidden rounded-lg border border-gray-100 bg-white shadow-md ">
+  <div class=" mx-3 mt-3 flex h-60 overflow-hidden rounded-xl">
+    <img class="object-cover w-full h-full" src={image} alt="product image" />
+  </div>
+  <div class="mt-4 px-5 pb-5">
+    <h5 class="text-xl tracking-tight text-slate-900 font-semibold">{name}</h5>
+    <div class="mt-2 mb-5 flex items-center justify-between">
+      <p>
+        <span class="text-3xl font-bold text-green-500">₹{price}</span>
+      </p>
+    </div>
+    <div class="flex items-center justify-between gap-x-3">
+      {isAdmin ? (
+        <>
+          <button
+            onClick={handleEditModal}
+            class="px-3 py-1 text-white bg-red-500 hover:bg-red-600  transition-all duration-200  rounded-md text-xl w-40">
+            Edit
+          </button>
+          <button
+            onClick={handleDeleteModal}
+            class="px-3 py-1 text-white bg-red-500 hover:bg-red-600  transition-all duration-200 rounded-md text-xl w-40">
+            Delete
+          </button>
+        </>
+      ) : (
+        <button
+          onClick={() => {
+            !user
+              ? toast.error("Please login to add to cart")
+              : addToCart({ id, name, image, price, rating, quantity: 1 });
+          }}
+          class="px-3 py-1 text-white bg-green-500 hover:bg-green-600 transition-all duration-300 rounded-md text-xl  w-56  mx-auto">
+          Add to cart
+        </button>
+      )}
+    </div>
+  </div>
+</div>
 
-          {isAdmin ? (
-            <>
-              <button
-                onClick={handleEditModal}
-                className="p-1 text-white bg-red-500 hover:bg-red-600 rounded-lg text-sm ">
-                Edit
-              </button>
-              <button
-                onClick={handleDeleteModal}
-                className="p-1 text-white bg-red-500 hover:bg-red-600 rounded-lg text-sm ">
-                Delete
-              </button>
-            </>
-          ) : (
-            // !user
-            // ? toast.error("Please login to add to cart")
-            // : editItem({ id, name, img, price, rating, quantity: 1 });
-            //  !user
-            //  ? toast.error("Please login to add to cart")
-            //  : deleteItem(fetchDataCallback);
 
-            <button
-              onClick={() => {
-                !user
-                  ? toast.error("Please login to add to cart")
-                  : addToCart({ id, name, image, price, rating, quantity: 1 });
-              }}
-              className="p-1 text-white bg-green-500 hover:bg-green-600 rounded-lg text-sm ">
-              Add to cart
-            </button>
-          )}
-        </div>
-      </div>
 
       {showEditModal && (
         <form onSubmit={editItem} className="fixed top-0 left-0 flex items-center justify-center w-full h-full bg-black bg-opacity-50">
