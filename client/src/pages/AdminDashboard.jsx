@@ -39,7 +39,7 @@ const AdminDashboard = () => {
       <h1 className="text-4xl flex justify-center font-bold mt-4">Admin Dashboard</h1>
       <div className="flex">
         {/* Sidebar */}
-        <div className="w-1/4 bg-gray-200 p-4">
+        <div className="w-1/6 bg-gray-200 p-4">
           {/* Button for Manage Menu */}
           <button
             className="w-full p-2 mb-2 bg-gray-300 rounded"
