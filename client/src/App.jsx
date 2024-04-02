@@ -11,6 +11,7 @@ import VerifyOtp from "./pages/VerifyOtp";
 import { useSelector } from "react-redux"; // Import the useSelector hook
 import AdminDashboard from "./pages/AdminDashboard";
 import Orders from "./pages/Orders";
+import Navbar from "./components/Navbar";
 const App = () => {
   console.log(import.meta.env.VITE_SERVER_URL);
 
@@ -21,6 +22,7 @@ const App = () => {
 
   return (
     <BrowserRouter>
+    <Navbar />
       <Routes>
         {/* <Route path="/" element={<Home />} /> */}
         {/* <Route
