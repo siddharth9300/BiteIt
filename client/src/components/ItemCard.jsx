@@ -50,7 +50,7 @@ const ItemCard = ({ cartId, quantity, _id ,food  }) => {
       <img src={food.image} alt="" className="w-[50px] h-[50px] " />
       <div className="leading-5">
         <h2 className="font-bold text-gray-800">{food.name}</h2>
-        <div className="flex justify-between ">
+        <div className="flex justify-between mt-2">
           <span className="text-green-500 font-bold">₹{food.price}</span>
           <div className="flex justify-center items-center gap-2 absolute right-7">
             <AiOutlineMinus

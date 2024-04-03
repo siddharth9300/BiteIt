@@ -45,7 +45,7 @@ console.log(totalQty);
         } transition-all duration-500 z-50`}
       >
         <div className="flex justify-between items-center my-3">
-          <span className="text-xl font-bold text-gray-800">My Order</span>
+          <span className="text-xl font-bold text-gray-800">My Cart</span>
           <IoMdClose
             onClick={() => setActiveCart(!activeCart)}
             className="border-2 border-gray-600 text-gray-600 font-bold  p-1 text-xl  rounded-md hover:text-red-300 hover:border-red-300 cursor-pointer"

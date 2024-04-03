@@ -527,6 +527,7 @@ const checkout = async (req, res) => {
     // const userId = req.id;
     // Find the user's cart
     const cart = await Cart.findOne({ user: userId }).populate('items.food');
+    console.log('Cart Items:', cart.items); // Add this logging
 
     // // Create an order object based on the cart items
     // const order = new Order({

@@ -4,7 +4,6 @@ import axios from 'axios'; // Assuming you use axios for making HTTP requests
 const AdminOrders = () => {
   const [orders, setOrders] = useState([]);
 
-  useEffect(() => {
     // Fetch all orders from the backend server
     const fetchOrders = async () => {
       try {
@@ -16,9 +15,24 @@ const AdminOrders = () => {
         console.error('Error fetching orders:', error);
       }
     };
+    useEffect(() => {
 
     fetchOrders();
   }, []);
+
+
+  
+  const updateStatus = async (orderId) => {
+    try {
+      // Update order status to "complete"
+      await axios.put(`${import.meta.env.VITE_SERVER_URL}/api/updateOrder/${orderId}`, { status: 'completed' });
+      // Refresh orders after update
+      fetchOrders();
+    } catch (error) {
+      console.error('Error updating order status:', error);
+    }
+  };
+
 
   return (
     <>
@@ -104,6 +118,10 @@ const AdminOrders = () => {
     <div class="text-xs">
       <div class="mb-1">Discount：₹ null to be added</div>
       <div class="mb-auto">Remark：to be added</div>
+      <div class="mb-1 text-xl font-bold">Status: {order.status}   </div>
+
+      <button  className="p-1  text-white bg-green-500 hover:bg-green-600 rounded-lg text-xl "
+ onClick={() => updateStatus(order._id)}>Mark as Complete</button>
       <div class="text-right mt-20">
         
         <div>Time：{order.createdAt}</div>
