@@ -84,7 +84,7 @@ const Orders = () => {
     <div class="text-center text-xs font-bold mb-1">~~~~~~~~~~~~~~~~~~~~~~~~~~~~</div>
     <div class="text-xs pl-2">
       <div class="text-xs mb-1">Customer：{order.user.name}</div>
-      <div class="text-xs mb-1">TelePhone：NULL to be added</div>
+      {/* <div class="text-xs mb-1">TelePhone：NULL to be added</div> */}
       <div>OrderNumber：{order._id}</div>
     </div>
     <div class="border-double border-t-4 border-b-4 border-l-0 border-r-0 border-gray-900 my-3">
@@ -116,8 +116,8 @@ const Orders = () => {
       </div>
     </div>
     <div class="text-xs">
-      <div class="mb-1">Discount：₹ null to be added</div>
-      <div class="mb-auto">Remark：to be added</div>
+      {/* <div class="mb-1">Discount：₹ null to be added</div> */}
+      {/* <div class="mb-auto">Remark：to be added</div> */}
       <div class="mb-1 text-xl font-bold">Status: {order.status}   </div>
 
       <div class="text-right mt-20">
