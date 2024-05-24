@@ -84,7 +84,7 @@ const AdminOrders = () => {
     <div class="text-center text-xs font-bold mb-1">~~~~~~~~~~~~~~~~~~~~~~~~~~~~</div>
     <div class="text-xs pl-2">
       <div class="text-xs mb-1">Customer：{order.user.name}</div>
-      <div class="text-xs mb-1">TelePhone：NULL to be added</div>
+      {/* <div class="text-xs mb-1">TelePhone：NULL to be added</div> */}
       <div>OrderNumber：{order._id}</div>
     </div>
     <div class="border-double border-t-4 border-b-4 border-l-0 border-r-0 border-gray-900 my-3">
@@ -116,12 +116,17 @@ const AdminOrders = () => {
       </div>
     </div>
     <div class="text-xs">
-      <div class="mb-1">Discount：₹ null to be added</div>
-      <div class="mb-auto">Remark：to be added</div>
+      {/* <div class="mb-1">Discount：₹ null to be added</div> */}
+      {/* <div class="mb-auto">Remark：to be added</div> */}
       <div class="mb-1 text-xl font-bold">Status: {order.status}   </div>
-
-      <button  className="p-1  text-white bg-green-500 hover:bg-green-600 rounded-lg text-xl "
- onClick={() => updateStatus(order._id)}>Mark as Complete</button>
+      {order.status !== "complete" && (
+    <button
+      className="p-1 text-white bg-green-500 hover:bg-green-600 rounded-lg text-xl"
+      onClick={() => updateStatus(order._id)}
+    >
+      Mark as Complete
+    </button>
+  )}
       <div class="text-right mt-20">
         
         <div>Time：{order.createdAt}</div>
