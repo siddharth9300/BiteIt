@@ -2,17 +2,18 @@ import axios from "axios";
 import { useState } from "react";
 import toast from "react-hot-toast";
 import { Link, useNavigate } from "react-router-dom";
-
+import LoadingSpinner from "../components/LoadingSpinner";
 const Signup = () => {
   const navigate = useNavigate();
 
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-
+const[isLoading, setIsLoading] = useState(false); // Add this line
   const handleSignup = async (e) => {
-    e.preventDefault();
 
+    e.preventDefault();
+setIsLoading(true)
     const res = await axios.post(`${import.meta.env.VITE_SERVER_URL}/api/signup`, {
       name,
       email,
@@ -21,6 +22,7 @@ const Signup = () => {
     const data = await res.data;
     if (res.status === 201) {
       toast.success(data.message);
+      setIsLoading(false);
       navigate("/login");
     } else if (res.status === 400 || res.status === 500) {
       toast.error(data.message);
@@ -28,6 +30,11 @@ const Signup = () => {
   };
 
   return (
+    <>
+      {isLoading ? (
+        <LoadingSpinner />
+      ) :
+   
     <div className="flex justify-center items-center h-screen">
       <form
         onSubmit={handleSignup}
@@ -81,6 +88,8 @@ const Signup = () => {
         </p>
       </form>
     </div>
+}
+     </>
   );
 };
 

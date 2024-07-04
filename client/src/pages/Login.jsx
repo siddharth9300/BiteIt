@@ -4,17 +4,18 @@ import { useDispatch } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { loginUser } from "../redux/slices/AuthSlice";
 import toast from "react-hot-toast";
+import LoadingSpinner from "../components/LoadingSpinner";
 
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-
+const[isLoading, setIsLoading] = useState(false); // Add this line
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
   const handleLogin = async (e) => {
     e.preventDefault();
-
+    setIsLoading(true)
     const res = await axios.post(`${import.meta.env.VITE_SERVER_URL}/api/login`, {
       email,
       password,
@@ -27,11 +28,15 @@ const Login = () => {
         // console.log(data.user.isAdmin);
       dispatch(loginUser({ user: data.user, isAdmin: data.user.isAdmin }));
       toast.success(data.message);
+      setIsLoading(false);
       navigate("/");
     }
   };
 
   return (
+    <>{isLoading ? (
+      <LoadingSpinner />
+    ) :
     <div className="flex justify-center items-center h-screen">
       <form
         onSubmit={handleLogin}
@@ -79,6 +84,8 @@ const Login = () => {
         </p>
       </form>
     </div>
+    }
+    </>
   );
 };
 

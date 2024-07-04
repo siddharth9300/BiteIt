@@ -1,14 +1,19 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios'; // Assuming you use axios for making HTTP requests
-
+import LoadingSpinner from "../components/LoadingSpinner";
 const AdminOrders = () => {
   const [orders, setOrders] = useState([]);
-
+  const[IsLoading, setIsLoading] = useState(true);
     // Fetch all orders from the backend server
     const fetchOrders = async () => {
       try {
+        setIsLoading(false);
         const response = await axios.get(`${import.meta.env.VITE_SERVER_URL}/api/ordersByAdmin`); // Adjust the endpoint based on your backend routes
-        setOrders(response.data.data); // Assuming the orders data is nested under a "data" key
+        const sortedOrders = response.data.data.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+        setOrders(sortedOrders); // Assuming the orders data is nested under a "data" key and "createdDate" is the field to sort by
+
+       
+        // setOrders(response.data.data); // Assuming the orders data is nested under a "data" key
         console.log('Orders:', response.data.data);
         console.log('Orders:', response);
       } catch (error) {
@@ -16,7 +21,7 @@ const AdminOrders = () => {
       }
     };
     useEffect(() => {
-
+      setIsLoading(true);
     fetchOrders();
   }, []);
 
@@ -36,33 +41,9 @@ const AdminOrders = () => {
 
   return (
     <>
-    {/* <div className="container mx-auto">
-    <h2 className="text-2xl font-semibold mb-4">All Orders (Admin)</h2>
-    <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
-      {orders.map(order => (
-        <div key={order._id} className="bg-white shadow-lg rounded-lg overflow-hidden">
-          <div className="px-4 py-2">
-         <h3 className="text-lg font-semibold mb-2">Order ID: {order._id}</h3> 
-            <p className="text-gray-600">User: {order.user.name}</p>
-            <p className="text-gray-600">Total Price: {order.totalPrice}</p>
-            <p className="text-gray-600">Status: {order.status}</p>
-            <h4 className="text-lg font-semibold mt-4">Items:</h4>
-            <ul>
-              {order.items.map(item => (
-                <li key={item.food._id}>
-                      <img src={item.food.image} alt={item.food.name} style={{ maxWidth: '100px', maxHeight: '100px' }} />
-
-                  <p>Name: {item.food.name}</p>
-                  <p>Quantity: {item.quantity}</p>
-                  
-                </li>
-              ))}
-            </ul>
-          </div>
-        </div>
-      ))}
-    </div>
-  </div> */}
+    
+    {IsLoading ? <LoadingSpinner />
+    :
 
 
 
@@ -119,17 +100,19 @@ const AdminOrders = () => {
       {/* <div class="mb-1">Discount：₹ null to be added</div> */}
       {/* <div class="mb-auto">Remark：to be added</div> */}
       <div class="mb-1 text-xl font-bold">Status: {order.status}   </div>
-      {order.status !== "complete" && (
-    <button
-      className="p-1 text-white bg-green-500 hover:bg-green-600 rounded-lg text-xl"
-      onClick={() => updateStatus(order._id)}
-    >
-      Mark as Complete
-    </button>
-  )}
+      {order.status !== "completed" && (
+        <button
+          className="p-1 text-white bg-green-500 hover:bg-green-600 rounded-lg text-xl"
+          onClick={() => updateStatus(order._id)}
+        >
+          Mark as Complete
+        </button>
+      )}
       <div class="text-right mt-20">
         
-        <div>Time：{order.createdAt}</div>
+        {/* <div>Time：{order.createdAt}</div> */}
+        <div>Time: {new Date(order.createdAt).toLocaleString('en-US', { year: 'numeric', month: 'long', day: 'numeric', hour: 'numeric', minute: 'numeric'})}</div>
+
         <div class="font-bold text-sm">Total Quantity {order.totalQuantity}</div>
         <div class="font-bold text-sm">Total Amount：₹ {order.totalPrice}</div>
       </div>
@@ -140,6 +123,8 @@ const AdminOrders = () => {
   </div>
   </div>
 
+
+}
     </>
 
 );

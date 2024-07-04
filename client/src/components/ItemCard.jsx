@@ -51,7 +51,7 @@ const ItemCard = ({ cartId, quantity, _id ,food  }) => {
       <div className="leading-5">
         <h2 className="font-bold text-gray-800">{food.name}</h2>
         <div className="flex justify-between mt-2">
-          <span className="text-green-500 font-bold">₹{food.price}</span>
+          <span className="text-green-500 font-bold">₹{food.price} x {quantity} = {food.price*quantity}</span>
           <div className="flex justify-center items-center gap-2 absolute right-7">
             <AiOutlineMinus
               onClick={() =>

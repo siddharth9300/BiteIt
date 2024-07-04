@@ -3,21 +3,23 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { setCategory } from "../redux/slices/CategorySlice";
 import axios from "axios";
+import LoadingSpinner from "./LoadingSpinner";
 const CategoryMenu = () => {
   const [categories, setCategories] = useState([]);
 const [FoodItems, setFoodItems] = useState([]);
-
+const [IsLoading, setIsLoading] = useState(false);
 useEffect(() => {
   fetchData();
 }, []);
 
 const fetchData = async () => {
+  setIsLoading(true);
   try {
     const response = await axios.get(`${import.meta.env.VITE_SERVER_URL}/api/get-menu-items`);
     const foodItems = response.data;
     const uniqueCategories = [...new Set(foodItems.map((food) => food.category))];
     setCategories(uniqueCategories);
-    
+    setIsLoading(false);
   } catch (error) {
     console.error("Failed to fetch data: ", error);
   }
@@ -28,6 +30,10 @@ const fetchData = async () => {
   const selectedCategory = useSelector((state) => state.category.category);
 
   return (
+    <>
+    {IsLoading ? (
+    <LoadingSpinner />) : 
+   
     <div className="ml-6">
       {/* <h3 className="text-xl font-semibold">Find the best food</h3> */}
 
@@ -56,6 +62,8 @@ const fetchData = async () => {
         })}
       </div>
     </div>
+     }
+     </>
   );
 };
 

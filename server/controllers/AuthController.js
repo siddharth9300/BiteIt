@@ -118,6 +118,7 @@ const resetPassword = async (req, res) => {
     }
 
     
+    
     const info = await transporter.sendMail({
       from: process.env.SENDER_EMAIL, // sender address
       to: email, // list of receivers

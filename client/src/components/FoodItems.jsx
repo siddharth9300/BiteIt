@@ -189,6 +189,7 @@ Add Menu Item</button>
               <option value="Dinner">Dinner</option>
               <option value="Snacks">Snacks</option>
               <option value="Breakfast">Breakfast</option>
+              <option value="Dessert ">Dessert</option>
             </select>
             <div className="flex justify-between">
               <button

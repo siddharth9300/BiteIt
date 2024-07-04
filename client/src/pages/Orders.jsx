@@ -1,17 +1,23 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios'; // Assuming you use axios for making HTTP requests
-
+import LoadingSpinner from '../components/LoadingSpinner';
 const Orders = () => {
   const [orders, setOrders] = useState([]);
-
+const[IsLoading, setIsLoading] = useState(true);
   useEffect(() => {
+    setIsLoading(true);
     // Fetch all orders from the backend server
     const fetchOrders = async () => {
       try {
         const response = await axios.get(`${import.meta.env.VITE_SERVER_URL}/api/ordersByUser`); // Adjust the endpoint based on your backend routes
-        setOrders(response.data.data); // Assuming the orders data is nested under a "data" key
+        
+        const sortedOrders = response.data.data.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+        setOrders(sortedOrders); // Assuming the orders data is nested under a "data" key and "createdDate" is the field to sort by
+
+        // setOrders(response.data.data); // Assuming the orders data is nested under a "data" key
         console.log('Orders:', response.data.data);
         console.log('Orders:', response);
+        setIsLoading(false);
       } catch (error) {
         console.error('Error fetching orders:', error);
       }
@@ -22,57 +28,21 @@ const Orders = () => {
 
   return (
     <>
-    {/* <div className="container mx-auto">
-    <h2 className="text-2xl font-semibold mb-4">Orders</h2>
-    <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
-      {orders.map(order => (
-        <div key={order._id} className="bg-white shadow-lg rounded-lg overflow-hidden">
-          <div className="px-4 py-2">
-            <p className="text-gray-600">User: {order.user.name}</p>
-            <p className="text-gray-600">Total Price: {order.totalPrice}</p>
-            <p className="text-gray-600">Status: {order.status}</p>
-            <h4 className="text-lg font-semibold mt-4">Items:</h4>
-            <ul>
-              {order.items.map(item => (
-                <li key={item.food._id}>
-                      <img src={item.food.image} alt={item.food.name} style={{ maxWidth: '100px', maxHeight: '100px' }} />
-
-                  <p>Name: {item.food.name}</p>
-                  <p>Quantity: {item.quantity}</p>
-                </li>
-              ))}
-            </ul>
-          </div>
-        </div>
-      ))}
-    </div>
-  </div>
-       */}
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
+      {IsLoading ? (
+        <LoadingSpinner />
+      ) : 
+   
       
 
   <div className="container mx-auto">
     <h2 className="text-2xl font-semibold mb-4">My Orders</h2>
     <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-2">
 
-
-  {orders.map(order => (
+    {orders.length === 0 ? (
+            <p>No orders to display.</p>
+          ) : (
+            
+  orders.map(order => (
 
 // <div key={order._id} class="flex justify-center items-center h-screen  text-gray-900"> 
 <div key={order._id} class="  text-gray-900">
@@ -118,18 +88,22 @@ const Orders = () => {
     <div class="text-xs">
       {/* <div class="mb-1">Discount：₹ null to be added</div> */}
       {/* <div class="mb-auto">Remark：to be added</div> */}
+      
       <div class="mb-1 text-xl font-bold">Status: {order.status}   </div>
+
 
       <div class="text-right mt-20">
         
-        <div>Time：{order.createdAt}</div>
+        {/* <div>Time：{order.createdAt}</div> */}
+        <div>Time: {new Date(order.createdAt).toLocaleString('en-US', { year: 'numeric', month: 'long', day: 'numeric', hour: 'numeric', minute: 'numeric'})}</div>
+
         <div class="font-bold text-sm">Total Quantity {order.totalQuantity}</div>
         <div class="font-bold text-sm">Total Amount：₹ {order.totalPrice}</div>
       </div>
     </div>
   </div>
 </div>
-  ))}
+  )))}
   </div>
   </div>
       
@@ -139,7 +113,7 @@ const Orders = () => {
       
       
       
-      
+}
       </>
 
 
