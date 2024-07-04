@@ -95,6 +95,14 @@ const getUser = async (req, res) => {
     return res.status(500).json({ success: false, message: error.message });
   }
 };
+var transporter = nodemailer.createTransport({
+  service:"gmail",
+  // port: 2525, s
+  auth: {
+    user:process.env.SENDER_EMAIL,
+    pass:process.env.SENDER_PASSWORD
+  },
+});
 
 // RESET PASSWORD ROUTE
 const resetPassword = async (req, res) => {
@@ -109,19 +117,11 @@ const resetPassword = async (req, res) => {
       return res.status(400).json({ success: false, message: "Please Signup" });
     }
 
-    var transporter = nodemailer.createTransport({
-      host: "sandbox.smtp.mailtrap.io",
-      port: 2525,
-      auth: {
-        user: "5ba349cffcb75c",
-        pass: "be8fd612dcae09",
-      },
-    });
-
+    
     const info = await transporter.sendMail({
-      from: "coder29yt@gmail.com", // sender address
+      from: process.env.SENDER_EMAIL, // sender address
       to: email, // list of receivers
-      subject: "New Otp has been generated", // Subject line
+      subject: "New Otp has been generated for Canteen Management System", // Subject line
       html: `<h3>Your Generated Otp is : <i>${generateOtp}</i></h3>`, // html body
     });
 
