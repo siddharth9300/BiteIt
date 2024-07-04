@@ -67,13 +67,13 @@ const[IsLoading, setIsLoading] = useState(true);
       </div>
       <div class="border-dashed border-t border-b border-l-0 border-r-0 border-gray-900 mt-1 my-2 py-2 px-1">
       {order.items.map(item => (
-        <div key={item.food._id} class="flex justify-between text-sm">
-          <span class="w-4/12 ">{item.food.name}</span>
-          <span class="w-2/12 text-center">₹{item.food.price}</span>
-          <span class="w-1/12 text-center"> X</span>
-          <span class="w-2/12 text-center">{item.quantity} </span>
-          <span class="w-3/12 text-right">₹{item.quantity * item.food.price} </span>
-        </div>
+         <div key={item.food?._id} className="flex justify-between text-sm">
+    <span className="w-4/12">{item.food && item.food.name}</span>
+    <span className="w-2/12 text-center">₹{item.food && item.food.price}</span>
+    <span className="w-1/12 text-center"> X</span>
+    <span className="w-2/12 text-center">{item.quantity}</span>
+    <span className="w-3/12 text-right">₹{item.food && item.quantity * item.food.price}</span>
+  </div>
         ))}
     
       </div>
