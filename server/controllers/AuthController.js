@@ -109,7 +109,7 @@ const resetPassword = async (req, res) => {
   const { email } = req.body;
 
   try {
-    const generateOtp = Math.floor(Math.random() * 10000); // Generate a 4 digit OTP
+   
 
     let user = User.findOne({ email });
 
@@ -117,16 +117,21 @@ const resetPassword = async (req, res) => {
       return res.status(400).json({ success: false, message: "Please Signup" });
     }
 
+    const generateOtp = Math.floor(Math.random() * 10000); // Generate a 4 digit OTP
     
     
-    const info = await transporter.sendMail({
-      from: process.env.SENDER_EMAIL, // sender address
-      to: email, // list of receivers
-      subject: "New Otp has been generated for Canteen Management System", // Subject line
-      html: `<h3>Your Generated Otp is : <i>${generateOtp}</i></h3>`, // html body
-    });
 
-    if (info.messageId) {
+      const info = await transporter.sendMail({
+        from: process.env.SENDER_EMAIL, // sender address
+        to: email, // list of receivers
+        subject: "New Otp has been generated for Canteen Management System", // Subject line
+        html: `<h3>Your Generated Otp for resetting your password is : <i>${generateOtp}</i></h3>`, // html body
+      });
+    
+      
+   
+
+    if ( info.messageId) {
       await User.findOneAndUpdate(
         { email },
         {

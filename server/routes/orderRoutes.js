@@ -10,4 +10,4 @@ router.put('/updateOrder/:orderId',verifyToken, updateOrder);
 // Routes accessible by users
 router.get('/ordersByUser',verifyToken, getOrdersByUser);
 
-module.exports = router;
+module.exports = router; 

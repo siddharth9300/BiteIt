@@ -2,30 +2,40 @@ import axios from "axios";
 import { useState } from "react";
 import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
-
+import LoadingSpinner from "../components/LoadingSpinner";
 const ResetPassword = () => {
   const [email, setEmail] = useState("");
-
+const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
 
   const handleResetPassword = async (e) => {
     e.preventDefault();
-
+setIsLoading(true);
     try {
       const res = await axios.put(`${import.meta.env.VITE_SERVER_URL}/api/reset-password`, {
-        email,
+        email
       });
       const data = await res.data;
+      if(res.status === 400){
+        toast.error(data.message);
+        setIsLoading(false);
+      }
       if (data.success) {
         toast.success(data.message);
+        setIsLoading(false);
         navigate("/verify-otp");
       }
     } catch (error) {
+      toast.error(error.message);
       console.log(error.message);
     }
   };
 
   return (
+    <>
+    {isLoading ? (
+      <LoadingSpinner />
+    ) : 
     <div className="flex justify-center items-center h-screen">
       <form
         onSubmit={handleResetPassword}
@@ -54,6 +64,8 @@ const ResetPassword = () => {
         </button>
       </form>
     </div>
+    }
+    </>
   );
 };
 
