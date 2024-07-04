@@ -7,6 +7,9 @@ import ManageMenu from "../components/ManageMenu"; // A component for managing m
 import ManageUsers from "../components/ManageUsers"; // A component for managing users
 import Cart from "../components/Cart";
 import AdminOrders from "./AdminOrders";
+import { MdRestaurantMenu } from "react-icons/md";
+import { FaUsers } from "react-icons/fa";
+import { BiFoodMenu } from "react-icons/bi";
 
 const AdminDashboard = () => {
 
@@ -35,30 +38,31 @@ const AdminDashboard = () => {
     
   return (
     <>
-       <Navbar />
+       {/* <Navbar /> */}
       <h1 className="text-4xl flex justify-center font-bold mt-4">Admin Dashboard</h1>
       <div className="flex">
         {/* Sidebar */}
-        <div className="w-1/4 bg-gray-200 p-4">
+        <div className="w-1/6 h-100%  ">
           {/* Button for Manage Menu */}
           <button
-            className="w-full p-2 mb-2 bg-gray-300 rounded"
+            className="w-full p-2 mb-2 bg-green-600 text-white rounded-r flex"
             onClick={() => handleComponentChange("manageMenu")}
-          >
+          ><MdRestaurantMenu className="flex text-xl mr-4 ml-2"/>
             Manage Menu
           </button>
           {/* Button for Manage Users */}
           <button
-            className="w-full p-2 mb-2 bg-gray-300 rounded"
+            className="w-full p-2 mb-2 bg-green-600 text-white  rounded-r flex"
             onClick={() => handleComponentChange("manageUsers")}
-          >
+          >          <FaUsers className="flex text-xl mr-4 ml-2"/>
+
             Manage Users
           </button>
           {/* Button for Orders */}
           <button
-            className="w-full p-2 mb-2 bg-gray-300 rounded"
+            className="w-full p-2 mb-2 bg-green-600 text-white  rounded-r flex"
             onClick={() => handleComponentChange("orders")}
-          >
+            >          <BiFoodMenu className="flex text-xl mr-4 ml-2"/>
             Orders
           </button>
         </div>

@@ -170,4 +170,16 @@ const verifyOtp = async (req, res) => {
   }
 };
 
-module.exports = {signup, login, logout, getUser, resetPassword, verifyOtp}
+
+// Controller function to get details of all users
+const getAllUsers = async (req, res) => {
+// Controller function to get details of all non-admin users
+  try {
+    // Query the database to fetch details of all non-admin users
+    const users = await User.find({ isAdmin: false }, { password: 0, otp: 0 }); // Exclude password and otp, and filter by isAdmin: false
+    res.status(200).json({ success: true, data: users });
+  } catch (error) {
+    res.status(500).json({ success: false, message: error.message });
+  }
+};
+module.exports = {signup, login, logout, getUser, resetPassword,getAllUsers, verifyOtp}
