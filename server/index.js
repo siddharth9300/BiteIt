@@ -12,7 +12,7 @@ const orderRoutes = require("./routes/orderRoutes");
 connectDb();
 app.use(
   cors({
-    origin: ["http://localhost:5173","https://biteit.onrender.com"],
+    origin: ["http://localhost:5173","https://biteit.onrender.com","https://biteit.siddharthjain.me"],
     credentials: true,
   })
 );
